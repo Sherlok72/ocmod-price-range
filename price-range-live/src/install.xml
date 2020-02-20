@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+/*
+This file is part of "Price Range Plus" project and subject to the terms
+and conditions defined in file "LICENSE.txt", which is part of this source
+code package and also available on the project page: https://git.io/JvBbw.
+*/
+
+<modification>
+	<name>[underr] Price Range Live</name>
+	<code>price-range-live</code>
+	<version>1.0.0</version>
+	<author>Andrii Burkatskyi aka underr</author>
+	<link>https://git.io/JvBbw</link>
+
+	<file path="catalog/controller/extension/module/live_options.php" error="log">
+		<operation error="log">
+			<search><![CDATA[$json['success'] = true;]]></search>
+			<add position="before"><![CDATA[
+			// Compatibility with the Price Range+ module
+			if ($this->config->get('module_price_range_status')) {
+				$store_id = $this->config->get('config_store_id');
+				$source = $this->config->get('module_price_range_store')[$store_id]['range_source'];
+
+				if ('O' == $source && !$this->hasOptions() || 'M' == $source && !$this->hasOptions()) {
+					$this->load->model('extension/module/price_range');
+
+					$price_range = $this->model_extension_module_price_range->getPriceRange($product_id);
+
+					if (!empty($price_range['price'])) {
+						$json['product']['price'] = $price_range['price'];
+						$has_discount = false;
+
+						// Replace displaying price range by discount price range if specified matched quantity
+						if (isset($price_range['discounts'])) {
+							foreach ($price_range['discounts'] as $key => $value) {
+								if ($quantity >= (int)$key) {
+									$json['product']['price'] = $value['range'];
+
+									if (isset($value['extax']) && !$this->hide_extax) {
+										$json['product']['extax'] = $value['extax'];
+									}
+
+									$has_discount = true;
+								}
+							}
+						}
+					}
+
+					if (!empty($price_range['extax']) && !$this->hide_extax && !$has_discount) {
+						$json['product']['extax'] = $price_range['extax'];
+					}
+
+					if (!empty($price_range['discounts'])) {
+						$json['product']['discounts'] = $price_range['discounts'];
+					}
+
+					if (!empty($price_range['special'])) {
+						$json['product']['special'] = $price_range['special'];
+					}
+				}
+			}]]>
+			</add>
+		</operation>
+	</file>
+	<file path="catalog/model/extension/module/price_range.php" error="log">
+		<operation error="log">
+			<search><![CDATA[foreach ($this->model_catalog_product->getProductDiscounts($product_id) as $discount) {]]></search>
+			<add position="before"><![CDATA[
+			// Add compatibility with Live Options+/Live Options Pro price ratio feature
+			if ($this->config->get('module_live_options_status') &&
+				$this->config->get('module_live_options_ratioed_options')
+			) {
+				$has_ratioed_prices = $this->config->get('module_live_options_ratioed_options');
+			} else {
+				$has_ratioed_prices = false;
+			}]]>
+			</add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$discount_range = $this->getOptionRange($discount['price'], $options);]]></search>
+			<add position="replace">
+				<![CDATA[$discount_range = $this->getOptionRange($discount['price'], $options, $has_ratioed_prices ? $discount['price'] / $price : 1);]]>
+			</add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$special_range = $this->getOptionRange($special, $options);]]></search>
+			<add position="replace">
+				<![CDATA[$special_range = $this->getOptionRange($special, $options, $has_ratioed_prices ? $special / $price : 1);]]>
+			</add>
+		</operation>
+	</file>
+</modification>
