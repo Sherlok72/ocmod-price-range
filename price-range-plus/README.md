@@ -7,6 +7,7 @@ The «Price Range+» extension is for Opencart CMS 3. The extension allows to di
 * Display price ranges of products based on option prices, specials and discounts
 * Multistore support
 * Compatibility with [Live Options](https://git.io/JvBf1) extensions
+* Compatibility with [eMarket](https://themeforest.net/item/emarket-the-ecommerce-multipurpose-marketplace-opencart-3-theme-mobile-layouts-included/20843842) theme from themeforest.net
 * Compatibility with third party templates and modules due using OpenCart Event System
 
 ## Live demo
