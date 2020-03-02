@@ -6,8 +6,8 @@ The «Price Range+» extension is for Opencart CMS 3. The extension allows to di
 ## Features
 * Display price ranges of products based on option prices, specials and discounts
 * Multistore support
-* Support of [Live Options](https://git.io/JvBf1) (needs to installed [Price Range Live](https://git.io/JvRtq))
-* High compatibility with third party templates and modules due using OpenCart Event System
+* Compatibility with [Live Options](https://git.io/JvBf1) extensions
+* Compatibility with third party templates and modules due using OpenCart Event System
 
 ## Live demo
 * [Admin](http://ocmod.freevar.com/oc3020/b/admin/index.php?route=extension/module/price_range)
@@ -23,4 +23,4 @@ The «Price Range+» extension is for Opencart CMS 3. The extension allows to di
 
 ## Related modules and extensions
 * [Live Options](https://git.io/JvBf1)
-* [Price Range Live](https://git.io/JvRtq)
+* [Price Range+ Live](https://git.io/JvBbw)
