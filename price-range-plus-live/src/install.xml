@@ -8,9 +8,9 @@ code package and also available on the project page: https://git.io/JvBbw.
 
 
 <modification>
-	<name>[underr] Price Range Live</name>
-	<code>price-range-live</code>
-	<version>1.0.0</version>
+	<name>[underr] Price Range+ Live</name>
+	<code>price-range-plus-live</code>
+	<version>1.0.2</version>
 	<author>Andrii Burkatskyi aka underr</author>
 	<link>https://git.io/JvBbw</link>
 
@@ -20,10 +20,9 @@ code package and also available on the project page: https://git.io/JvBbw.
 			<add position="before"><![CDATA[
 			// Compatibility with the Price Range+ module
 			if ($this->config->get('module_price_range_status')) {
-				$store_id = $this->config->get('config_store_id');
-				$source = $this->config->get('module_price_range_store')[$store_id]['range_source'];
+				$status = (int)$this->config->get('module_price_range_store')[$this->config->get('config_store_id')]['status'];
 
-				if ('O' == $source && !$this->hasOptions() || 'M' == $source && !$this->hasOptions()) {
+				if ($status === 1 && !$this->hasSelected($post_option)) {
 					$this->load->model('extension/module/price_range');
 
 					$price_range = $this->model_extension_module_price_range->getPriceRange($product_id);
@@ -63,7 +62,18 @@ code package and also available on the project page: https://git.io/JvBbw.
 			}]]>
 			</add>
 		</operation>
+		<operation error="log">
+			<search><![CDATA[showEl(g_discount_id + '-' + qty, json.product.discounts[qty])]]></search>
+			<add position="replace"><![CDATA[// Compatibility with the Price Range+ module
+            if (!json.product.discounts[qty].description) {
+                showEl(g_discount_id + '-' + qty, json.product.discounts[qty]);
+            } else {
+                showEl(g_discount_id + '-' + qty, json.product.discounts[qty].description);
+            }]]>
+			</add>
+		</operation>
 	</file>
+
 	<file path="catalog/model/extension/module/price_range.php" error="log">
 		<operation error="log">
 			<search><![CDATA[foreach ($this->model_catalog_product->getProductDiscounts($product_id) as $discount) {]]></search>
