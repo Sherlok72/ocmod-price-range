@@ -76,6 +76,8 @@ git:
 	fi
 
 # decrypting/unpacking bin
+# for doc use 'make list fcl=doc'
+# for src use 'make list fcl=src'
 dec: pwd
 	@if [ -f "$(pwd_file)" -a -f "$(bin_dir)/$(mod_name)-$(fcl).fcl.g" ]; then \
 		hideg "$(bin_dir)/$(mod_name)-$(fcl).fcl.g"; \
@@ -83,8 +85,8 @@ dec: pwd
 	fi
 
 # show list of files in fcl-file
-# for doc use make list fcl=doc
-# for src use make list fcl=src
+# for doc use 'make list fcl=doc'
+# for src use 'make list fcl=src'
 list: pwd
 	@if [ -f "$(pwd_file)" -a -f "$(bin_dir)/$(mod_name)-$(fcl).fcl.g" ]; then \
 		hideg "$(bin_dir)/$(mod_name)-$(fcl).fcl.g"; \
