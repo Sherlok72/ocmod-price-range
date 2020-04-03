@@ -5,9 +5,9 @@
 * Admin > Extensions > Installer > [Upload]: price-range-plus.ocmod.zip
 * Admin > Extensions > Modifications > [Refresh]
 * Admin > Dashboard > [Developer Settings] > [Refresh]
+* Admin > Extensions > Extensions > Modules > [underr] Price Range+ > [Install]
 
 ## How to configure
-* Admin > Extensions > Extensions > Modules > [underr] Price Range+ > [Install]
 * Admin > Extensions > Extensions > Modules > [underr] Price Range+ > [Edit]
 
 ## How to uninstall
