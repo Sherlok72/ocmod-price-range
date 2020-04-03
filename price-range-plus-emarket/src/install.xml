@@ -10,7 +10,7 @@ code package and also available on the project page: https://git.io/JvBbw.
 <modification>
 	<name>[underr] Price Range+ eMarket</name>
 	<code>price-range-plus-emarket</code>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 	<author>Andrii Burkatskyi aka underr</author>
 	<link>https://git.io/JvBbw</link>
 
@@ -18,25 +18,47 @@ code package and also available on the project page: https://git.io/JvBbw.
 		<operation error="log">
 			<search><![CDATA[$cat['child'][]]]></search>
 			<add position="before"><![CDATA[
-
-				if ($this->config->get('module_price_range_status') && $this->config->get('module_price_range_store')[$this->config->get('config_store_id')]['status']) {
+				if ($this->config->get('module_price_range_status')) {
 					$this->load->model('extension/module/price_range');
 
-					$price_range = $this->model_extension_module_price_range->getPriceRange($product_info['product_id']);
+					$store_settings = $this->model_extension_module_price_range->getStoreSettings();
 
-					if (isset($price_range['price']) && $price) {
-						$price = $price_range['price'];
-					}
+					if ($store_settings['status']) {
+						$product_options = $this->model_catalog_product->getProductOptions($data['product_id']);
+						$config_tax = $this->config->get('config_tax');
 
-					if (isset($price_range['special']) && $special) {
-						$product['special'] = $price_range['special'];
-					}
+						if ($config_tax) {
+							$extax_range = $this->model_extension_module_price_range->calculate((float)$product_info['price'], $product_options);
 
-					if (isset($price_range['tax']) && $tax) {
-						$product['tax'] = $price_range['tax'];
+							$price_range = array(
+								'min' => $this->tax->calculate($extax_range['min'], $product_info['tax_class_id'], $config_tax),
+								'max' => $this->tax->calculate($extax_range['max'], $product_info['tax_class_id'], $config_tax),
+							);
+
+							$price = $this->model_extension_module_price_range->format($price_range);
+
+							if ((float)$product_info['special']) {
+								$extax_range = $this->model_extension_module_price_range->calculate((float)$product_info['special'], $product_options);
+
+								$special_range['min'] = $this->tax->calculate($extax_range['min'], $product_info['tax_class_id'], $config_tax);
+								$special_range['max'] = $this->tax->calculate($extax_range['max'], $product_info['tax_class_id'], $config_tax);
+
+								$special = $this->model_extension_module_price_range->format($special_range);
+							}
+
+							$tax = $this->model_extension_module_price_range->format($extax_range);
+						} else {
+							$price_range = $this->model_extension_module_price_range->calculate((float)$product_info['price'], $product_options);
+							$price = $this->model_extension_module_price_range->format($price_range);
+
+							if ((float)$product_info['special']) {
+								$special_range = $this->model_extension_module_price_range->calculate((float)$product_info['special'], $product_options);
+
+								$special = $this->model_extension_module_price_range->format($special_range);
+							}
+						}
 					}
 				}
-
 			]]>
 			</add>
 		</operation>
@@ -46,25 +68,47 @@ code package and also available on the project page: https://git.io/JvBbw.
 		<operation error="log">
 			<search><![CDATA[$data['product_features'][]]]></search>
 			<add position="before"><![CDATA[
-
-				if ($this->config->get('module_price_range_status') && $this->config->get('module_price_range_store')[$this->config->get('config_store_id')]['status']) {
+				if ($this->config->get('module_price_range_status')) {
 					$this->load->model('extension/module/price_range');
 
-					$price_range = $this->model_extension_module_price_range->getPriceRange($product_info['product_id']);
+					$store_settings = $this->model_extension_module_price_range->getStoreSettings();
 
-					if (isset($price_range['price']) && $price) {
-						$price = $price_range['price'];
-					}
+					if ($store_settings['status']) {
+						$product_options = $this->model_catalog_product->getProductOptions($data['product_id']);
+						$config_tax = $this->config->get('config_tax');
 
-					if (isset($price_range['special']) && $special) {
-						$product['special'] = $price_range['special'];
-					}
+						if ($config_tax) {
+							$extax_range = $this->model_extension_module_price_range->calculate((float)$product_info['price'], $product_options);
 
-					if (isset($price_range['tax']) && $tax) {
-						$product['tax'] = $price_range['tax'];
+							$price_range = array(
+								'min' => $this->tax->calculate($extax_range['min'], $product_info['tax_class_id'], $config_tax),
+								'max' => $this->tax->calculate($extax_range['max'], $product_info['tax_class_id'], $config_tax),
+							);
+
+							$price = $this->model_extension_module_price_range->format($price_range);
+
+							if ((float)$product_info['special']) {
+								$extax_range = $this->model_extension_module_price_range->calculate((float)$product_info['special'], $product_options);
+
+								$special_range['min'] = $this->tax->calculate($extax_range['min'], $product_info['tax_class_id'], $config_tax);
+								$special_range['max'] = $this->tax->calculate($extax_range['max'], $product_info['tax_class_id'], $config_tax);
+
+								$special = $this->model_extension_module_price_range->format($special_range);
+							}
+
+							$tax = $this->model_extension_module_price_range->format($extax_range);
+						} else {
+							$price_range = $this->model_extension_module_price_range->calculate((float)$product_info['price'], $product_options);
+							$price = $this->model_extension_module_price_range->format($price_range);
+
+							if ((float)$product_info['special']) {
+								$special_range = $this->model_extension_module_price_range->calculate((float)$product_info['special'], $product_options);
+
+								$special = $this->model_extension_module_price_range->format($special_range);
+							}
+						}
 					}
 				}
-
 			]]>
 			</add>
 		</operation>
@@ -74,25 +118,47 @@ code package and also available on the project page: https://git.io/JvBbw.
 		<operation error="log">
 			<search><![CDATA[$data['products'][]]]></search>
 			<add position="before"><![CDATA[
-
-				if ($this->config->get('module_price_range_status') && $this->config->get('module_price_range_store')[$this->config->get('config_store_id')]['status']) {
+				if ($this->config->get('module_price_range_status')) {
 					$this->load->model('extension/module/price_range');
 
-					$price_range = $this->model_extension_module_price_range->getPriceRange($product_info['product_id']);
+					$store_settings = $this->model_extension_module_price_range->getStoreSettings();
 
-					if (isset($price_range['price']) && $price) {
-						$price = $price_range['price'];
-					}
+					if ($store_settings['status']) {
+						$product_options = $this->model_catalog_product->getProductOptions($data['product_id']);
+						$config_tax = $this->config->get('config_tax');
 
-					if (isset($price_range['special']) && $special) {
-						$product['special'] = $price_range['special'];
-					}
+						if ($config_tax) {
+							$extax_range = $this->model_extension_module_price_range->calculate((float)$product_info['price'], $product_options);
 
-					if (isset($price_range['tax']) && $tax) {
-						$product['tax'] = $price_range['tax'];
+							$price_range = array(
+								'min' => $this->tax->calculate($extax_range['min'], $product_info['tax_class_id'], $config_tax),
+								'max' => $this->tax->calculate($extax_range['max'], $product_info['tax_class_id'], $config_tax),
+							);
+
+							$price = $this->model_extension_module_price_range->format($price_range);
+
+							if ((float)$product_info['special']) {
+								$extax_range = $this->model_extension_module_price_range->calculate((float)$product_info['special'], $product_options);
+
+								$special_range['min'] = $this->tax->calculate($extax_range['min'], $product_info['tax_class_id'], $config_tax);
+								$special_range['max'] = $this->tax->calculate($extax_range['max'], $product_info['tax_class_id'], $config_tax);
+
+								$special = $this->model_extension_module_price_range->format($special_range);
+							}
+
+							$tax = $this->model_extension_module_price_range->format($extax_range);
+						} else {
+							$price_range = $this->model_extension_module_price_range->calculate((float)$product_info['price'], $product_options);
+							$price = $this->model_extension_module_price_range->format($price_range);
+
+							if ((float)$product_info['special']) {
+								$special_range = $this->model_extension_module_price_range->calculate((float)$product_info['special'], $product_options);
+
+								$special = $this->model_extension_module_price_range->format($special_range);
+							}
+						}
 					}
 				}
-
 			]]>
 			</add>
 		</operation>
@@ -102,25 +168,47 @@ code package and also available on the project page: https://git.io/JvBbw.
 		<operation error="log">
 			<search><![CDATA[$cat['child'][]]]></search>
 			<add position="before"><![CDATA[
-
-				if ($this->config->get('module_price_range_status') && $this->config->get('module_price_range_store')[$this->config->get('config_store_id')]['status']) {
+				if ($this->config->get('module_price_range_status')) {
 					$this->load->model('extension/module/price_range');
 
-					$price_range = $this->model_extension_module_price_range->getPriceRange($product_info['product_id']);
+					$store_settings = $this->model_extension_module_price_range->getStoreSettings();
 
-					if (isset($price_range['price']) && $price) {
-						$price = $price_range['price'];
-					}
+					if ($store_settings['status']) {
+						$product_options = $this->model_catalog_product->getProductOptions($data['product_id']);
+						$config_tax = $this->config->get('config_tax');
 
-					if (isset($price_range['special']) && $special) {
-						$product['special'] = $price_range['special'];
-					}
+						if ($config_tax) {
+							$extax_range = $this->model_extension_module_price_range->calculate((float)$product_info['price'], $product_options);
 
-					if (isset($price_range['tax']) && $tax) {
-						$product['tax'] = $price_range['tax'];
+							$price_range = array(
+								'min' => $this->tax->calculate($extax_range['min'], $product_info['tax_class_id'], $config_tax),
+								'max' => $this->tax->calculate($extax_range['max'], $product_info['tax_class_id'], $config_tax),
+							);
+
+							$price = $this->model_extension_module_price_range->format($price_range);
+
+							if ((float)$product_info['special']) {
+								$extax_range = $this->model_extension_module_price_range->calculate((float)$product_info['special'], $product_options);
+
+								$special_range['min'] = $this->tax->calculate($extax_range['min'], $product_info['tax_class_id'], $config_tax);
+								$special_range['max'] = $this->tax->calculate($extax_range['max'], $product_info['tax_class_id'], $config_tax);
+
+								$special = $this->model_extension_module_price_range->format($special_range);
+							}
+
+							$tax = $this->model_extension_module_price_range->format($extax_range);
+						} else {
+							$price_range = $this->model_extension_module_price_range->calculate((float)$product_info['price'], $product_options);
+							$price = $this->model_extension_module_price_range->format($price_range);
+
+							if ((float)$product_info['special']) {
+								$special_range = $this->model_extension_module_price_range->calculate((float)$product_info['special'], $product_options);
+
+								$special = $this->model_extension_module_price_range->format($special_range);
+							}
+						}
 					}
 				}
-
 			]]>
 			</add>
 		</operation>
