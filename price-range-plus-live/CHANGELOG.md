@@ -1,5 +1,9 @@
 # Change log
 
+## [1.0.3] (2020.03.02):
+### Changed
+- Compatibility with the "Price Range+" module v1.2.0
+
 ## [1.0.2] (2020.03.02):
 ### Fixed
 - Discount price ranges
