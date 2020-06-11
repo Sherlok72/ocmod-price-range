@@ -15,10 +15,10 @@ The «Price Range» extension is for Opencart CMS 3.x. It allows to display prod
 ## Links
 * [Opencart Marketplace](https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=33220)
 * [Homepage](https://underr.space/en/notes/projects/project-0024.html)
-* [Github](https://git.io/Jf9GD)
+* [Github](https://git.io/Jf9G9)
 
 ## License
-* Licensed under the [MIT](https://git.io/Jv945)
+* Licensed under the [MIT](https://git.io/Jf9Z3)
 
 ## Related modules and extensions
 * [Price Range+](https://git.io/JvbwZ)
