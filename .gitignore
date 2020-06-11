@@ -1,5 +1,2 @@
-# Ignore
 *.code-workspace
-*.bb
 *.php_cs
-*.pwd
