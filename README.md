@@ -8,6 +8,6 @@ It is a set of extensions for Opencart CMS 2.2.x - 3.0.x to displaying price ran
 * [Price Range](price-range) - free module that allows to display price ranges of products based on manually enetered values.
 
 ## Addons
-* [Price Range+ Live](addons/price-range-plus-live) - "Price Range+" addon for compatibility with [Live Options](https://github.com/underr-ua/ocmod3-live-options) extensions.
-* [Price Range+ eMarket](addons/price-range-plus-emarket) - "Price Range+" addon for compatibility with [eMarket](https://themeforest.net/item/emarket-the-ecommerce-multipurpose-marketplace-opencart-3-theme-mobile-layouts-included/20843842) theme from themeforest.net.
-* [Price Range Live](addons/price-range-live) - "Price Range" addon for compatibility with [Live Options](https://github.com/underr-ua/ocmod3-live-options) extensions.
+* [Price Range+ eMarket](addons/price-range-plus-emarket) - addon to provide compatibility between Price Range+ and [eMarket](https://themeforest.net/item/emarket-the-ecommerce-multipurpose-marketplace-opencart-3-theme-mobile-layouts-included/20843842) template.
+* [Live Options+ > Price Range+](https://git.io/JJv5J) - addon to provide compatibility between Price Range+ and [Live Options+](https://git.io/JfjUj) modules.
+* [Live Options+ > Price Range](https://git.io/JJvbv) - addon to provide compatibility between Price Range and [Live Options+](https://git.io/JfjUj) modules.
