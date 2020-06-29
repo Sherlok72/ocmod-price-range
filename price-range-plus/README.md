@@ -6,7 +6,8 @@ The «Price Range+» extension is for OpenCart CMS versions 2.2.x - 3.x. It allo
 ## Features
 * Display price ranges of products based on option prices, specials and discounts
 * Multistore support
-* Compatibility with the [Live Options+](https://git.io/JfjUj) module
+* Compatible with the [Option Equals Sign](https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=34383) extension
+* Compatible with the [Live Options+](https://git.io/JfjUj) module
 * High compatibility with third party templates and modules through the use of OpenCart Event System
 
 ## Live demo
@@ -22,5 +23,6 @@ The «Price Range+» extension is for OpenCart CMS versions 2.2.x - 3.x. It allo
 * [End-User License Agreement](https://git.io/Jf9Gb)
 
 ## Related modules and extensions
+* [Option Equals Sign](https://git.io/JfjkZ)
 * [Live Options+](https://git.io/JfjUj)
 * [Live Options+ compatibility addon](https://git.io/JJv5J)
