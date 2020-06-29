@@ -1,5 +1,11 @@
 # Change log
 
+## [1.4.0] (2020.06.29):
+### Added
+- Compatibility with the rules of the latest version of Option Equals Sign extension (checkbox-options with the equal sign)
+### Fixed
+- Multioption calculation
+
 ## [1.3.0] (2020.06.11):
 ### Added
 - Compatibility with 2.2.x versions
