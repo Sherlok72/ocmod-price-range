@@ -1,7 +1,7 @@
 <?php
 
 /*
-This file is part of "Price Range M" project and subject to the terms
+This file is part of "Price Range" project and subject to the terms
 and conditions defined in file "LICENSE.txt", which is part of this source
 code package and also available on the project page: https://git.io/Jf9G9.
 */
@@ -40,15 +40,27 @@ class ModelExtensionModulePriceRange extends Model {
 		}
 	}
 
-	public function addTableColumns() {
-		$this->db->query('ALTER TABLE ' . DB_PREFIX . 'product ADD IF NOT EXISTS min_price decimal(15,4) NOT NULL DEFAULT "0", ADD IF NOT EXISTS max_price decimal(15,4) NOT NULL DEFAULT "0"');
+	public function addPriceRangeColumns() {
+		if (!$this->hasPriceRangeColumns()) {
+			$this->db->query('ALTER TABLE ' . DB_PREFIX . 'product ADD COLUMN min_price decimal(15,4) NOT NULL DEFAULT "0", ADD COLUMN max_price decimal(15,4) NOT NULL DEFAULT "0"');
+
+			return TRUE;
+		}
+
+		return FALSE;
 	}
 
-	public function delTableColumns() {
-		$this->db->query('ALTER TABLE ' . DB_PREFIX . 'product DROP IF EXISTS min_price, DROP IF EXISTS max_price');
+	public function delPriceRangeColumns() {
+		if ($this->hasPriceRangeColumns()) {
+			$this->db->query('ALTER TABLE ' . DB_PREFIX . 'product DROP COLUMN min_price, DROP COLUMN max_price');
+
+			return TRUE;
+		}
+
+		return FALSE;
 	}
 
-	public function hasTableColumns() {
+	public function hasPriceRangeColumns() {
 		$query = $this->db->query('SELECT * FROM ' . DB_PREFIX . 'product');
 
 		if (isset($query->row['min_price']) && isset($query->row['max_price'])) {

@@ -84,7 +84,7 @@ class ControllerExtensionModulePriceRange extends Controller {
 			$options = array();
 		}
 
-		if ($this->hasTableColumns()) {
+		if ($this->hasPriceRangeColumns()) {
 			$data['has_price_range'] = true;
 		} else {
 			$data['has_price_range'] = false;
@@ -146,7 +146,7 @@ class ControllerExtensionModulePriceRange extends Controller {
 		// add 'min_price' and 'max_price' columns into 'product' table
 		$this->load->model('extension/module/price_range');
 
-		$this->model_extension_module_price_range->addTableColumns();
+		$this->model_extension_module_price_range->addPriceRangeColumns();
 
 		// Add events
 		$this->load->model('setting/event');
@@ -199,7 +199,7 @@ class ControllerExtensionModulePriceRange extends Controller {
 		$this->load->model('extension/module/price_range');
 
 		if (!empty($this->config->get('module_price_range')['cleanout'])) {
-			$this->model_extension_module_price_range->delTableColumns();
+			$this->model_extension_module_price_range->delPriceRangeColumns();
 		}
 
 		// Delete events
@@ -320,10 +320,10 @@ class ControllerExtensionModulePriceRange extends Controller {
 
 	// Check if "min_price" and "max_price" colums exist in "product" table
 	// Check if "count_once" column is already exist in "option" table
-	private function hasTableColumns() {
+	private function hasPriceRangeColumns() {
 		$this->load->model('extension/module/price_range');
 
-		return $this->model_extension_module_price_range->hasTableColumns();
+		return $this->model_extension_module_price_range->hasPriceRangeColumns();
 	}
 
 }

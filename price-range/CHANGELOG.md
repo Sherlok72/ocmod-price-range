@@ -1,5 +1,9 @@
 # Change log
 
+## [1.3.0] (2020.08.21):
+### Changed
+- Compatibility changes
+
 ## [1.2.0] (2020.04.06):
 ### Added
 - Ability to enter only the minimum or maximum price value

@@ -34,8 +34,8 @@ zip: enc
 	@echo Setting date/time [DONE]
 
 	@echo Making ZIP...;
-	cd "$(src_dir)" && zip -9qrX "../$(zip_dir)/$(ocm_file)" * "../$(lic_file)"
-
+	cd "$(src_dir)" && zip -9qrX "../$(zip_dir)/$(ocm_file)" *
+	cd "$(src_dir)" && zip -9qrXj "../$(zip_dir)/$(ocm_file)" "../$(lic_file)"
 	@echo Making ZIP [DONE]
 
 	@echo
