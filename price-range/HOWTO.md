@@ -8,7 +8,7 @@
 * Admin > Extensions > Extensions > Modules > [underr] Price Range > [Install]
 
 ## How to configure
-* Admin > Extensions > Extensions > Modules > [underr] Price Range+ > [Edit]
+* Admin > Extensions > Extensions > Modules > [underr] Price Range > [Edit]
 
 ## How to uninstall
 * Start by making a backup (both DB and store files)!!!
